@@ -1,0 +1,18 @@
+
+
+{
+  "schema": "./utils/schema.ts",
+  "out": "./drizzle",
+  "dialect": "postgresql",
+  "dbCredentials": {
+      "url": "postgresql://Expense-tracker_owner:npg_93hfRHOTLbuK@ep-divine-math-a5oakezx-pooler.us-east-2.aws.neon.tech/Expense-tracker?sslmode=require"
+  }
+}
+
+
+
+
+
+
+  
+  
