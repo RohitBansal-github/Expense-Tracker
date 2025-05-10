@@ -8,6 +8,7 @@ import { count, desc, eq, getTableColumns, sql } from 'drizzle-orm';
 import BarChartDashboard from './budgets/_components/BarChartDashboard';
 import BudgetItem from './budgets/_components/BudgetItem';
 import ExpenseListTable from './expenses/_components/ExpenseListTable';
+import DashboardWrapper from './DashboardWrapper'; // Import your wrapper here
 
 function Dashboard() {
   const { user } = useUser();
@@ -49,38 +50,38 @@ function Dashboard() {
       .orderBy(desc(Expenses.id));
 
     setExpensesList(result);
-
   }
 
   const refreshAllData = () => {
     getBudgetList();
     getAllExpenses();
   };
-  
 
   return (
-    <div className='p-8'>
-      <h2 className='font-bold text-3xl'>Hi, {user?.fullName} ✌️</h2>
-      <p className='text-gray-500 mt-2'>Here's what happening with your money, Lets Manage your expenses</p>
+    <DashboardWrapper>
+      <div className='p-8'>
+        <h2 className='font-bold text-3xl'>Hi, {user?.fullName} ✌️</h2>
+        <p className='text-gray-500 mt-2'>Here's what happening with your money, Let's Manage your expenses</p>
 
-      <CardInfo budgetList={budgetList} />
+        <CardInfo budgetList={budgetList} />
 
-      <div className='grid grid-cols-1 md:grid-cols-3 mt-6 gap-5'>
-        <div className='md:col-span-2'>
-          <BarChartDashboard budgetList={budgetList} /> 
-          <ExpenseListTable
-          expensesList={expensesList}
-          refreshData={refreshAllData()}
-          />
-        </div>
-        <div className='grid gap-5'>
-          <h2 className='font-bold text-lg'>Latest Budgets</h2>
-          {budgetList.map((budget, index) => (
-            <BudgetItem budget={budget} key={index} />
-          ))}
+        <div className='grid grid-cols-1 md:grid-cols-3 mt-6 gap-5'>
+          <div className='md:col-span-2'>
+            <BarChartDashboard budgetList={budgetList} /> 
+            <ExpenseListTable
+              expensesList={expensesList}
+              refreshData={refreshAllData}
+            />
+          </div>
+          <div className='grid gap-5'>
+            <h2 className='font-bold text-lg'>Latest Budgets</h2>
+            {budgetList.map((budget, index) => (
+              <BudgetItem budget={budget} key={index} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </DashboardWrapper>
   )
 }
 
