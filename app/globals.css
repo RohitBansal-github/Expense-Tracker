@@ -159,15 +159,16 @@ body {
 
 /* Glassmorphism Effect */
 .glassmorphism {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15); /* Match form for consistency */
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Stylish Expense Tracker Logo */
 .expense-tracker-logo {
-  background: linear-gradient(90deg, #4B5EAA, #7F9CF5); /* Indigo gradient */
+  background: linear-gradient(90deg, #4B5EAA, #7F9CF5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
@@ -195,9 +196,26 @@ body {
   align-items: center !important;
 }
 
+/* Override Clerk's Card Background */
+.cl-card {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 15px !important;
+}
+
+/* Ensure Form is Transparent */
+.cl-form {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 /* Hover Effects for Clerk Buttons */
 .clerk-form-button-primary:hover {
-  background: linear-gradient(90deg, #7F9CF5, #4B5EAA) !important; /* Indigo gradient on hover */
+  background: linear-gradient(90deg, #7F9CF5, #4B5EAA) !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -208,14 +226,37 @@ body {
   background: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Input Field Focus Effect */
+/* Input Field Styles */
+.clerk-form-field-input {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem !important;
+  font-size: 0.9rem !important;
+  font-family: var(--font-outfit), 'Poppins', sans-serif !important;
+}
+
 .clerk-form-field-input:focus {
-  border-color: #7F9CF5 !important; /* Lighter indigo for focus */
-  outline: none;
+  border-color: #7F9CF5 !important;
+  outline: none !important;
+}
+
+.clerk-form-field-input[type="password"] {
+  -webkit-text-security: disc !important;
+  -moz-text-security: disc !important;
+  text-security: disc !important;
+}
+
+.clerk-form-field-input::placeholder {
+  color: #cccccc !important;
+  opacity: 1 !important;
 }
 
 /* Links Hover Effect */
 .clerk-footer-action-link:hover {
   text-decoration: underline;
-  color: #7F9CF5 !important; /* Lighter indigo for links */
+  color: #7F9CF5 !important;
 }

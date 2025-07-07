@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Type } from "lucide-react";
-"lucide-react";
 import Image from "next/image";
 import Header from "./_components/Header";
 import Hero from "./_components/Hero";

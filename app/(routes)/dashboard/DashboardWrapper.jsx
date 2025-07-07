@@ -1,13 +1,20 @@
-// app/(routes)/dashboard/DashboardWrapper.js
-"use client";
+'use client';
 
-import { useUser } from "@clerk/nextjs";
-import DashboardLayout from "./DashboardLayout";
+import { useUser, RedirectToSignIn } from '@clerk/nextjs';
+import DashboardLayout from './DashboardLayout';
 
 export default function DashboardWrapper({ children }) {
-  const { isSignedIn } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
 
-  if (!isSignedIn) return <>{children}</>; // Show content only when not signed in
+  // 1. Wait until Clerk finishes loading
+  if (!isLoaded) return null;             // ya koi loader show kar lo
 
-  return <DashboardLayout>{children}</DashboardLayout>; // Show layout with sidebar if signed in
+  // 2. Not signed‑in ⇒ send to Clerk sign‑in,
+  //    and come back to /dashboard after success
+  if (!isSignedIn) {
+    return <RedirectToSignIn redirectUrl="/dashboard" />;
+  }
+
+  // 3. Signed‑in ⇒ render dashboard with sidebar/layout
+  return <DashboardLayout>{children}</DashboardLayout>;
 }

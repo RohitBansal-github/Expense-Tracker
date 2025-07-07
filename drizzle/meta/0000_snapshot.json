@@ -1,5 +1,5 @@
 {
-  "id": "ccc45bb4-0eb1-4f68-b4f7-acde8eb8cb55",
+  "id": "1fbb129d-d3d5-4462-beb4-f9b2ef5b8378",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -22,7 +22,7 @@
         },
         "amount": {
           "name": "amount",
-          "type": "numeric",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": true,
           "default": "'0'"
@@ -66,7 +66,7 @@
         },
         "amount": {
           "name": "amount",
-          "type": "numeric",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": true,
           "default": "'0'"
@@ -77,12 +77,17 @@
           "primaryKey": false,
           "notNull": false
         },
+        "createdBy": {
+          "name": "createdBy",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
         "createdAt": {
           "name": "createdAt",
-          "type": "timestamp with time zone",
+          "type": "varchar",
           "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
+          "notNull": true
         }
       },
       "indexes": {},

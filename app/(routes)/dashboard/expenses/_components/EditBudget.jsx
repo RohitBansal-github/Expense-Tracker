@@ -22,7 +22,7 @@ import { Budgets } from '@/utils/schema'
 import { eq } from 'drizzle-orm'
 import { toast } from 'sonner'
 
-function EditBudget({ budgetInfo,refreshData }) {
+function EditBudget({ budgetInfo, refreshData }) {
     const [emojiIcon, setemojiIcon] = useState(budgetInfo?.icon);
     const [openEmojiPicker, setopenEmojiPicker] = useState(false);
 
@@ -30,30 +30,41 @@ function EditBudget({ budgetInfo,refreshData }) {
     const [amount, setAmount] = useState(budgetInfo?.amount);
     const { user } = useUser();
 
-    useEffect(()=>{
-        if(budgetInfo){
+    useEffect(() => {
+        if (budgetInfo) {
             setemojiIcon(budgetInfo?.icon);
             setAmount(budgetInfo?.amount);
             setName(budgetInfo?.name);
 
         }
-    },[budgetInfo])
+    }, [budgetInfo])
 
-    const onUpdateBudget = async() => {
-        // backend update logic yahan add karo
-        const result=await db.update(Budgets).set({
-            name:name,
-            amount:amount,
-            icon:emojiIcon,
-        }).where(eq(Budgets.id,budgetInfo.id))
-        .returning();
+    const onUpdateBudget = async () => {
+        if (!user) return toast.error("Not authorized!");
 
-        if(result){
+        const result = await db
+            .update(Budgets)
+            .set({
+                name: name,
+                amount: amount,
+                icon: emojiIcon,
+            })
+            .where(
+                and(
+                    eq(Budgets.id, budgetInfo.id),
+                    eq(Budgets.createdBy, user.id) // 🔐 user isolation
+                )
+            )
+            .returning();
+
+        if (result.length > 0) {
             refreshData();
-            toast('Budget Updated!');
+            toast.success("Budget Updated!");
+        } else {
+            toast.error("Update failed. Not authorized!");
         }
-
     };
+
 
     return (
         <div>
